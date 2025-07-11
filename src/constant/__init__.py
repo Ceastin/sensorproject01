@@ -10,3 +10,5 @@ MONGO_DB_URL="mongodb+srv://ceastinstark:WPcPFybCjfNZOJKk@cluster0.aglmeux.mongo
 
 MODEL_FILE_NAME=""
 MODEL_FILE_EXTENSION=""
+
+artifact_folder="artifacts"
