@@ -29,16 +29,23 @@ class PredictionPipeline:
     def save_input_files(self) -> str:
         try:
             pred_file_input_dir = "prediction_artifacts"
-            os.makedirs(pred_file_input_dir, exist_ok= True)
+            os.makedirs(pred_file_input_dir, exist_ok=True)
 
             input_csv_file = self.request.files['file']
-            pred_file_path = os.path.join(pred_file_input_dir, input_csv_file.filename)
+            
+            if input_csv_file.filename == "":
+                raise CustomException("No file selected for uploading", sys)
 
+            from werkzeug.utils import secure_filename
+            safe_filename = secure_filename(input_csv_file.filename)
+
+            pred_file_path = os.path.join(pred_file_input_dir, safe_filename)
             input_csv_file.save(pred_file_path)
 
             return pred_file_path
+
         except Exception as e:
-            raise CustomException(e,sys)
+            raise CustomException(e, sys)
         
     def predict(self, features):
 
